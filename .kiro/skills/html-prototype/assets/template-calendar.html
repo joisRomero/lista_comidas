@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendario de Turnos - ANTA</title>
+  <link rel="stylesheet" href="./anta-prototype.css" />
+</head>
+<body>
+
+<!-- FLOW:
+  1. Usuario revisa filtros de sede y categoria.
+  2. Usuario navega entre meses para encontrar el periodo deseado.
+  3. Usuario hace clic en un dia o evento para abrir el detalle.
+  4. Usuario valida actividades programadas desde el modal.
+-->
+
+<div class="anta-layout">
+
+  <nav class="anta-sidebar" aria-label="Menu principal">
+    <div class="anta-sidebar-logo">
+      <span class="anta-sidebar-logo-text">ANTA</span>
+    </div>
+    <ul class="anta-nav" role="navigation">
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-inicio">
+          <i class="anta-nav-icon">&#8962;</i>
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li class="anta-nav-section">Recursos Humanos</li>
+      <li class="anta-nav-item anta-nav-item--active">
+        <a href="#" class="anta-nav-link" data-testid="nav-calendario">
+          <i class="anta-nav-icon">&#128197;</i>
+          <span>Calendario</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-empleados">
+          <i class="anta-nav-icon">&#128100;</i>
+          <span>Empleados</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-reportes">
+          <i class="anta-nav-icon">&#128202;</i>
+          <span>Reportes</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="anta-content">
+    <header class="anta-top-bar" role="banner">
+      <span class="anta-top-bar-title">Modulo de Programacion</span>
+      <div class="anta-top-bar-spacer"></div>
+      <div class="anta-top-bar-user" aria-label="Usuario actual">
+        <div class="anta-avatar" aria-hidden="true">JR</div>
+        <span>Juan Rios</span>
+      </div>
+    </header>
+
+    <main class="anta-main" role="main">
+      <div class="anta-page-header">
+        <div class="anta-page-header-left">
+          <h1 class="anta-page-title">
+            <i class="anta-page-title-icon" aria-hidden="true">&#128197;</i>
+            Calendario de Turnos
+          </h1>
+          <p class="anta-page-subtitle">Vista mensual de actividades, guardias y capacitaciones programadas</p>
+        </div>
+      </div>
+
+      <div class="anta-toolbar" role="toolbar" aria-label="Navegacion del calendario">
+        <button type="button" class="btn btn-default" data-testid="btn-prev-month">
+          &#8249; Mes anterior
+        </button>
+        <div class="anta-toolbar-spacer"></div>
+        <span class="text-bold">Mayo 2026</span>
+        <div class="anta-toolbar-spacer"></div>
+        <button type="button" class="btn btn-default" data-testid="btn-next-month">
+          Mes siguiente &#8250;
+        </button>
+      </div>
+
+      <div class="anta-filters" role="search" aria-label="Filtros del calendario">
+        <select class="anta-select anta-filter-select" data-testid="select-location" aria-label="Filtrar por sede o area">
+          <option value="">Todas las sedes</option>
+          <option value="mina" selected>Mina</option>
+          <option value="puerto">Puerto</option>
+          <option value="lima">Lima</option>
+        </select>
+        <select class="anta-select anta-filter-select" data-testid="select-category" aria-label="Filtrar por categoria">
+          <option value="">Todas las categorias</option>
+          <option value="turno" selected>Turnos</option>
+          <option value="capacitacion">Capacitaciones</option>
+          <option value="reunion">Reuniones</option>
+        </select>
+      </div>
+
+      <div class="anta-table-wrapper" role="region" aria-label="Calendario mensual">
+        <table class="anta-table" aria-label="Calendario de Mayo 2026">
+          <thead>
+            <tr>
+              <th scope="col">Lun</th>
+              <th scope="col">Mar</th>
+              <th scope="col">Mie</th>
+              <th scope="col">Jue</th>
+              <th scope="col">Vie</th>
+              <th scope="col">Sab</th>
+              <th scope="col">Dom</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="text-muted">&nbsp;</div></td>
+              <td><div class="text-muted">&nbsp;</div></td>
+              <td><div class="text-muted">&nbsp;</div></td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-01">1</button>
+                <div><button type="button" class="anta-badge anta-badge--approved" data-toggle="#day-detail-modal" data-testid="event-01-shift">Turno A</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-02">2</button>
+                <div><button type="button" class="anta-badge anta-badge--pending" data-toggle="#day-detail-modal" data-testid="event-02-training">Capacitacion</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-03">3</button>
+                <div><button type="button" class="anta-badge anta-badge--gray" data-toggle="#day-detail-modal" data-testid="event-03-off">Descanso</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-04">4</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-05">5</button>
+                <div><button type="button" class="anta-badge anta-badge--approved" data-toggle="#day-detail-modal" data-testid="event-05-shift">Turno B</button></div>
+                <div><button type="button" class="anta-badge anta-badge--pending" data-toggle="#day-detail-modal" data-testid="event-05-meeting">Reunion</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-06">6</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-07">7</button>
+                <div><button type="button" class="anta-badge anta-badge--pending" data-toggle="#day-detail-modal" data-testid="event-07-training">Induccion</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-08">8</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-09">9</button>
+                <div><button type="button" class="anta-badge anta-badge--rejected" data-toggle="#day-detail-modal" data-testid="event-09-blocked">Bloqueado</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-10">10</button>
+                <div><button type="button" class="anta-badge anta-badge--gray" data-toggle="#day-detail-modal" data-testid="event-10-off">Descanso</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-11">11</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-12">12</button>
+                <div><button type="button" class="anta-badge anta-badge--approved" data-toggle="#day-detail-modal" data-testid="event-12-shift">Turno C</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-13">13</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-14">14</button>
+                <div><button type="button" class="anta-badge anta-badge--pending" data-toggle="#day-detail-modal" data-testid="event-14-drill">Simulacro</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-15">15</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-16">16</button>
+                <div><button type="button" class="anta-badge anta-badge--approved" data-toggle="#day-detail-modal" data-testid="event-16-shift">Turno A</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-17">17</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-18">18</button>
+                <div><button type="button" class="anta-badge anta-badge--gray" data-toggle="#day-detail-modal" data-testid="event-18-off">Descanso</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-19">19</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-20">20</button>
+                <div><button type="button" class="anta-badge anta-badge--pending" data-toggle="#day-detail-modal" data-testid="event-20-review">Revision</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-21">21</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-22">22</button>
+                <div><button type="button" class="anta-badge anta-badge--approved" data-toggle="#day-detail-modal" data-testid="event-22-shift">Turno B</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-23">23</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-24">24</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-25">25</button>
+                <div><button type="button" class="anta-badge anta-badge--pending" data-toggle="#day-detail-modal" data-testid="event-25-training">Charla SST</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-26">26</button>
+                <div><button type="button" class="anta-badge anta-badge--approved" data-toggle="#day-detail-modal" data-testid="event-26-shift">Turno C</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-27">27</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-28">28</button>
+                <div><button type="button" class="anta-badge anta-badge--rejected" data-toggle="#day-detail-modal" data-testid="event-28-cancelled">Mantenimiento</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-29">29</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-30">30</button>
+                <div><button type="button" class="anta-badge anta-badge--gray" data-toggle="#day-detail-modal" data-testid="event-30-off">Descanso</button></div>
+              </td>
+              <td>
+                <button type="button" class="btn btn-link btn-sm" data-toggle="#day-detail-modal" data-testid="day-31">31</button>
+                <div><button type="button" class="anta-badge anta-badge--approved" data-toggle="#day-detail-modal" data-testid="event-31-shift">Turno A</button></div>
+              </td>
+              <td><div class="text-muted">&nbsp;</div></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="d-flex gap-sm mt-xl" aria-label="Leyenda del calendario">
+          <span class="anta-badge anta-badge--approved">Turno Confirmado</span>
+          <span class="anta-badge anta-badge--pending">Actividad Pendiente</span>
+          <span class="anta-badge anta-badge--rejected">Bloqueo</span>
+          <span class="anta-badge anta-badge--gray">Descanso</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+<div id="day-detail-modal" class="anta-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="day-detail-title">
+  <div class="anta-modal">
+    <div class="anta-modal-header">
+      <div class="anta-modal-title" id="day-detail-title">Detalle del dia 12 de Mayo</div>
+      <button type="button" class="anta-modal-close" data-dismiss="modal" data-testid="btn-close-day-modal" aria-label="Cerrar detalle del dia">&times;</button>
+    </div>
+    <div class="anta-modal-body">
+      <div class="anta-card mb-lg">
+        <div class="anta-card-header">
+          <h2 class="anta-card-title">Eventos programados</h2>
+        </div>
+        <div class="anta-card-body--compact">
+          <dl class="anta-descriptions anta-descriptions--full">
+            <div class="anta-descriptions-item">
+              <dt class="anta-descriptions-label">Turno principal</dt>
+              <dd class="anta-descriptions-value">Turno C &mdash; 07:00 a 19:00 &mdash; Mina San Nicolas</dd>
+            </div>
+            <div class="anta-descriptions-item">
+              <dt class="anta-descriptions-label">Actividad adicional</dt>
+              <dd class="anta-descriptions-value">Charla de seguridad operativa a las 18:00 en sala Gamma</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+      <div class="anta-alert anta-alert--info" role="status">
+        <i class="anta-alert-icon" aria-hidden="true">i</i>
+        <div class="anta-alert-content">Use este modal como referencia para describir el detalle del dia seleccionado.</div>
+      </div>
+    </div>
+    <div class="anta-modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" data-testid="btn-close-day-footer">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script src="./prototype-interactions.js"></script>
+</body>
+</html>

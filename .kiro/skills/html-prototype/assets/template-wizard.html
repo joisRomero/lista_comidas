@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wizard de Registro - ANTA</title>
+  <link rel="stylesheet" href="./anta-prototype.css" />
+</head>
+<body>
+
+<!-- FLOW:
+  1. Usuario inicia el wizard desde la pagina principal.
+  2. Usuario completa datos basicos del registro.
+  3. Usuario selecciona items relacionados.
+  4. Usuario revisa el resumen y confirma la creacion.
+-->
+
+<div class="anta-layout">
+
+  <nav class="anta-sidebar" aria-label="Menu principal">
+    <div class="anta-sidebar-logo">
+      <span class="anta-sidebar-logo-text">ANTA</span>
+    </div>
+    <ul class="anta-nav" role="navigation">
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-inicio">
+          <i class="anta-nav-icon">&#8962;</i>
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li class="anta-nav-section">Recursos Humanos</li>
+      <li class="anta-nav-item anta-nav-item--active">
+        <a href="#" class="anta-nav-link" data-testid="nav-wizard">
+          <i class="anta-nav-icon">&#128221;</i>
+          <span>Solicitud Guiada</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-empleados">
+          <i class="anta-nav-icon">&#128100;</i>
+          <span>Empleados</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-reportes">
+          <i class="anta-nav-icon">&#128202;</i>
+          <span>Reportes</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="anta-content">
+    <header class="anta-top-bar" role="banner">
+      <span class="anta-top-bar-title">Modulo de Solicitudes</span>
+      <div class="anta-top-bar-spacer"></div>
+      <div class="anta-top-bar-user" aria-label="Usuario actual">
+        <div class="anta-avatar" aria-hidden="true">JR</div>
+        <span>Juan Rios</span>
+      </div>
+    </header>
+
+    <main class="anta-main" role="main">
+      <div class="anta-page-header">
+        <div class="anta-page-header-left">
+          <h1 class="anta-page-title">
+            <i class="anta-page-title-icon" aria-hidden="true">&#129302;</i>
+            Registro Guiado
+          </h1>
+          <p class="anta-page-subtitle">Ejemplo de wizard modal para altas asistidas y seleccion de elementos relacionados</p>
+        </div>
+      </div>
+
+      <div class="anta-card">
+        <div class="anta-card-header">
+          <h2 class="anta-card-title">Nuevo registro asistido</h2>
+        </div>
+        <div class="anta-card-body">
+          <p class="mb-lg">Use este flujo cuando necesite dividir el proceso en pasos secuenciales con validacion y resumen final.</p>
+          <button type="button" class="btn btn-primary" data-toggle="#wizard-modal" data-testid="btn-start-wizard">
+            Click to start wizard
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+<div id="wizard-modal" class="anta-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="wizard-title">
+  <div class="anta-modal" style="max-width:800px" data-state-container>
+    <div class="anta-modal-header">
+      <div>
+        <div class="anta-modal-title" id="wizard-title">Crear solicitud de capacitacion</div>
+        <div class="text-caption text-muted">Ejemplo de flujo de 3 pasos controlado por estado</div>
+      </div>
+      <button type="button" class="anta-modal-close" data-dismiss="modal" data-testid="btn-close-wizard" aria-label="Cerrar wizard">&times;</button>
+    </div>
+
+    <div class="anta-modal-body">
+      <div class="d-flex gap-sm mb-lg" aria-label="Indicador de pasos">
+        <div data-show-state="step-1">
+          <span class="anta-badge anta-badge--approved">Paso 1</span>
+          <span class="anta-badge anta-badge--gray">Paso 2</span>
+          <span class="anta-badge anta-badge--gray">Paso 3</span>
+        </div>
+        <div data-show-state="step-2">
+          <span class="anta-badge anta-badge--gray">Paso 1</span>
+          <span class="anta-badge anta-badge--approved">Paso 2</span>
+          <span class="anta-badge anta-badge--gray">Paso 3</span>
+        </div>
+        <div data-show-state="step-3">
+          <span class="anta-badge anta-badge--gray">Paso 1</span>
+          <span class="anta-badge anta-badge--gray">Paso 2</span>
+          <span class="anta-badge anta-badge--approved">Paso 3</span>
+        </div>
+      </div>
+
+      <div class="anta-form-item mb-lg">
+        <label class="anta-form-label" for="wizard-step-select">Paso actual</label>
+        <select id="wizard-step-select" class="anta-select" data-state-select data-testid="select-wizard-step">
+          <option value="step-1" selected>Paso 1 - Datos basicos</option>
+          <option value="step-2">Paso 2 - Seleccion de items</option>
+          <option value="step-3">Paso 3 - Resumen</option>
+        </select>
+        <span class="anta-form-hint">Cambie el valor para simular la navegacion entre pasos.</span>
+      </div>
+
+      <div data-show-state="step-1">
+        <form class="anta-form" aria-label="Paso 1 del wizard">
+          <h2 class="anta-form-section-title">Datos basicos</h2>
+          <div class="anta-form-row">
+            <div class="anta-form-item">
+              <label class="anta-form-label" for="wizard-name">Nombre de la solicitud</label>
+              <input type="text" id="wizard-name" class="anta-input" value="Programa de induccion julio" data-testid="field-wizard-name" />
+            </div>
+            <div class="anta-form-item">
+              <label class="anta-form-label" for="wizard-category">Categoria</label>
+              <select id="wizard-category" class="anta-select" data-testid="field-wizard-category">
+                <option value="">Seleccione...</option>
+                <option value="safety" selected>Seguridad</option>
+                <option value="operations">Operaciones</option>
+                <option value="hr">Recursos Humanos</option>
+              </select>
+            </div>
+          </div>
+          <div class="anta-form-row anta-form-row--full">
+            <div class="anta-form-item">
+              <label class="anta-form-label" for="wizard-description">Descripcion</label>
+              <textarea id="wizard-description" class="anta-textarea" rows="4" data-testid="field-wizard-description">Capacitacion inicial para personal nuevo con enfoque en riesgos criticos y protocolos de ingreso.</textarea>
+              <span class="anta-form-hint">Explique el objetivo del proceso antes de continuar.</span>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div data-show-state="step-2">
+        <div class="anta-card">
+          <div class="anta-card-header">
+            <h2 class="anta-card-title">Seleccion de participantes</h2>
+          </div>
+          <div class="anta-card-body--compact">
+            <div class="anta-table-wrapper">
+              <table class="anta-table" aria-label="Items disponibles">
+                <thead>
+                  <tr>
+                    <th scope="col" class="col-checkbox"><input type="checkbox" data-testid="checkbox-all-items" aria-label="Seleccionar todos los items" /></th>
+                    <th scope="col">Empleado</th>
+                    <th scope="col">Area</th>
+                    <th scope="col">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="checkbox" checked data-testid="checkbox-item-1" aria-label="Seleccionar item uno" /></td>
+                    <td>Rosa Benites</td>
+                    <td>Operaciones</td>
+                    <td><span class="anta-badge anta-badge--approved">Disponible</span></td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" data-testid="checkbox-item-2" aria-label="Seleccionar item dos" /></td>
+                    <td>Diego Acosta</td>
+                    <td>Mantenimiento</td>
+                    <td><span class="anta-badge anta-badge--pending">Pendiente</span></td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" checked data-testid="checkbox-item-3" aria-label="Seleccionar item tres" /></td>
+                    <td>Elena Salazar</td>
+                    <td>Seguridad</td>
+                    <td><span class="anta-badge anta-badge--approved">Disponible</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-show-state="step-3">
+        <div class="anta-card">
+          <div class="anta-card-header">
+            <h2 class="anta-card-title">Resumen de la solicitud</h2>
+          </div>
+          <div class="anta-card-body--compact">
+            <dl class="anta-descriptions">
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Nombre</dt>
+                <dd class="anta-descriptions-value">Programa de induccion julio</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Categoria</dt>
+                <dd class="anta-descriptions-value">Seguridad</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Participantes</dt>
+                <dd class="anta-descriptions-value">2 seleccionados</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Fecha objetivo</dt>
+                <dd class="anta-descriptions-value">15/07/2026</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="anta-modal-footer">
+      <div data-show-state="step-1" class="d-flex gap-sm">
+        <button type="button" class="btn btn-default" data-testid="btn-prev-step-1">Anterior</button>
+        <button type="button" class="btn btn-primary" data-testid="btn-next-step-1">Siguiente</button>
+      </div>
+      <div data-show-state="step-2" class="d-flex gap-sm">
+        <button type="button" class="btn btn-default" data-testid="btn-prev-step-2">Anterior</button>
+        <button type="button" class="btn btn-primary" data-testid="btn-next-step-2">Siguiente</button>
+      </div>
+      <div data-show-state="step-3" class="d-flex gap-sm">
+        <button type="button" class="btn btn-default" data-testid="btn-prev-step-3">Anterior</button>
+        <button type="button" class="btn btn-primary" data-testid="btn-create-wizard">Crear</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="./prototype-interactions.js"></script>
+</body>
+</html>

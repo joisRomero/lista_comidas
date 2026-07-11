@@ -1,0 +1,72 @@
+# docker-compose.yml - Service template
+# Naming: container = source-{service}, image = 200-0{PORT}
+services:
+  source-{service-name}:
+    container_name: source-{service-name}
+    image: 200-0{PORT}
+    build:
+      context: .
+      dockerfile: ./Dockerfile_local
+      args:
+        CODEARTIFACT_AUTH_TOKEN: ${CODEARTIFACT_AUTH_TOKEN}
+    ports:
+      - "{PORT}:{PORT}"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - AWS_REGION=us-east-1
+      - TZ=America/Lima
+    restart: unless-stopped
+    networks:
+      - antamina-network
+
+networks:
+  antamina-network:
+    external: true
+
+---
+# docker-compose.yml - Service with DB connection (API Interna)
+# Use this template for services that connect to SQL Server
+services:
+  source-apiinterna-{module}:
+    container_name: source-apiinterna-{module}
+    image: 200-0{PORT}
+    build:
+      context: .
+      dockerfile: ./Dockerfile_local
+      args:
+        CODEARTIFACT_AUTH_TOKEN: ${CODEARTIFACT_AUTH_TOKEN}
+    ports:
+      - "{PORT}:{PORT}"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - AWS_REGION=us-east-1
+      - TZ=America/Lima
+      - ConnectionStrings__DEV_STANDAR=Data Source=sql-proxy,1433;Initial Catalog={DatabaseName};User ID={DbUser};Password={DbPassword};TrustServerCertificate=True
+    restart: unless-stopped
+    networks:
+      - antamina-network
+
+networks:
+  antamina-network:
+    external: true
+
+---
+# docker-compose.proxy.yml - SQL Proxy (run ONCE before any service)
+# Command: docker-compose -f docker-compose.proxy.yml up -d
+# IMPORTANT: Copy this file from an existing service. Run only ONE instance.
+
+services:
+  sql-proxy:
+    image: alpine/socat
+    container_name: sql-proxy
+    command: TCP-LISTEN:1433,fork,reuseaddr TCP:host.docker.internal:1433
+    ports:
+      - "11433:1433"
+    restart: unless-stopped
+    networks:
+      - antamina-network
+
+networks:
+  antamina-network:
+    name: antamina-network
+    driver: bridge

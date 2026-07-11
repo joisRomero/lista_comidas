@@ -1,0 +1,1443 @@
+/* =============================================================================
+   anta-prototype.css — ANTA Design System for Static HTML Prototypes
+    Version: 1.2
+   Purpose: Mimics Ant Design 6.0.1 with ANTA custom tokens. Pure CSS, no JS.
+   ============================================================================= */
+
+/* =============================================================================
+   1. DESIGN TOKENS
+   ============================================================================= */
+
+:root {
+  /* Brand */
+  --primary:                #007788;
+  --primary-light:          #e6f4f6;
+  --link:                   #1890ff;
+  --link-hover:             #40a9ff;
+
+  /* Sidebar — production tokens from AppLayout.module.css */
+  --sidebar-gradient-start: #007788;
+  --sidebar-gradient-end:   #004650;
+  --menu-hover:             #96d3d133;
+  --menu-selected-bg:       #96d3d180;
+  --menu-selected-text:     #ffe34c;
+  --color-border-layout:    #dfe7ef;
+  --color-footer-bg:        #f9fafb;
+
+  /* Semantic */
+  --success:           #52c41a;
+  --success-bg:        #f6ffed;
+  --success-border:    #b7eb8f;
+  --warning:           #fa8c16;
+  --warning-bg:        #fff7e6;
+  --warning-border:    #ffd591;
+  --error:             #ff4d4f;
+  --error-bg:          #fff2f0;
+  --error-border:      #ffccc7;
+  --info:              #1890ff;
+  --info-bg:           #e6f7ff;
+  --info-border:       #91d5ff;
+
+  /* Text */
+  --text-title:        #262626;
+  --text-primary:      #4a5568;
+  --text-secondary:    #595959;
+  --text-muted:        #8c8c8c;
+  --text-disabled:     #bfbfbf;
+  --text-white:        #ffffff;
+
+  /* Backgrounds */
+  --bg-page:           #f5f5f5;
+  --bg-card:           #ffffff;
+  --bg-table-head:     #fafafa;
+  --bg-table-stripe:   #fafafa;
+  --bg-table-hover:    #e6f4f6;
+  --bg-sidebar-active: #96d3d180;
+  --bg-sidebar-hover:  #96d3d133;
+
+  /* Borders */
+  --border:            #d9d9d9;
+  --border-light:      #e8e8e8;
+  --border-input:      #d9d9d9;
+  --border-input-focus:#007788;
+
+  /* Badge colors */
+  --badge-draft-bg:    #e5e7eb;
+  --badge-draft-text:  #374151;
+  --badge-pending-bg:  #fef3c7;
+  --badge-pending-text:#92400e;
+  --badge-progress-bg: #dbeafe;
+  --badge-progress-text:#1e40af;
+  --badge-approved-bg: #d1fae5;
+  --badge-approved-text:#065f46;
+  --badge-rejected-bg: #fee2e2;
+  --badge-rejected-text:#991b1b;
+
+  /* Spacing */
+  --space-xs:          4px;
+  --space-sm:          8px;
+  --space-md:          12px;
+  --space-lg:          16px;
+  --space-xl:          24px;
+  --space-2xl:         32px;
+  --space-3xl:         48px;
+
+  /* Typography */
+  --font-family:       -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-size-h1:      24px;
+  --font-size-h2:      20px;
+  --font-size-h3:      16px;
+  --font-size-body:    14px;
+  --font-size-small:   13px;
+  --font-size-caption: 12px;
+  --font-weight-normal:400;
+  --font-weight-medium:500;
+  --font-weight-semibold:600;
+  --line-height:       1.5714;
+
+  /* Borders radii */
+  --radius-sm:         4px;
+  --radius-md:         8px;
+  --radius-lg:         12px;
+  --radius-full:       50%;
+
+  /* Shadows */
+  --shadow-card:       0 1px 2px rgba(0, 0, 0, 0.03), 0 1px 6px rgba(0, 0, 0, 0.05);
+  --shadow-hover:      0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-elevated:   0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-modal:      0 6px 16px rgba(0, 0, 0, 0.08), 0 3px 6px rgba(0, 0, 0, 0.12);
+
+  /* Sidebar */
+  --sidebar-width:     220px;
+  --header-height:     56px;
+
+  /* Transitions */
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.2s ease;
+}
+
+/* =============================================================================
+   2. RESET & BASE
+   ============================================================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height);
+  color: var(--text-primary);
+  background-color: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* =============================================================================
+   3. LAYOUT SYSTEM
+   ============================================================================= */
+
+.anta-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.anta-sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  background: linear-gradient(135deg, var(--sidebar-gradient-start), var(--sidebar-gradient-end));
+  box-shadow: 5px 0 5px var(--color-border-layout);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-shrink: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.anta-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.anta-sidebar-logo {
+  padding: var(--space-xl) var(--space-lg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.anta-sidebar-logo-text {
+  font-size: 18px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-white);
+  letter-spacing: 0.05em;
+}
+
+.anta-sidebar-logo-sub {
+  font-size: var(--font-size-caption);
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 2px;
+}
+
+/* Content area */
+.anta-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Top header bar */
+.anta-top-bar {
+  height: var(--header-height);
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--color-border-layout);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-xl);
+  gap: var(--space-lg);
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.anta-top-bar-title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-title);
+}
+
+.anta-top-bar-spacer {
+  flex: 1;
+}
+
+.anta-top-bar-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.anta-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #007788, #40a9ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+  flex-shrink: 0;
+}
+
+/* Main scroll area */
+.anta-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  min-height: 0;
+}
+
+.anta-main > * {
+  flex-shrink: 0;
+}
+
+/* =============================================================================
+   4. SIDEBAR NAVIGATION
+   ============================================================================= */
+
+.anta-nav {
+  padding: var(--space-sm) 0;
+  flex: 1;
+}
+
+.anta-nav-section {
+  padding: var(--space-lg) var(--space-lg) var(--space-xs);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-semibold);
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.anta-nav-item {
+  margin: 2px var(--space-sm);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.anta-nav-item:hover {
+  background-color: var(--menu-hover);
+}
+
+.anta-nav-item--active {
+  background-color: var(--menu-selected-bg);
+  border-left: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.anta-nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--font-size-body);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast);
+}
+
+.anta-nav-item--active .anta-nav-link {
+  color: var(--menu-selected-text);
+  font-weight: var(--font-weight-medium);
+  padding-left: calc(var(--space-md) - 3px);
+}
+
+.anta-nav-icon {
+  width: 18px;
+  text-align: center;
+  font-style: normal;
+  font-size: 15px;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.anta-nav-divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.10);
+  margin: var(--space-sm) var(--space-lg);
+}
+
+/* =============================================================================
+   5. PAGE HEADER & BREADCRUMB
+   ============================================================================= */
+
+.anta-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-small);
+  color: var(--text-muted);
+  margin-bottom: var(--space-sm);
+}
+
+.anta-breadcrumb a {
+  color: var(--text-muted);
+}
+
+.anta-breadcrumb a:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.anta-breadcrumb-sep {
+  color: var(--text-disabled);
+}
+
+.anta-breadcrumb-current {
+  color: var(--text-secondary);
+}
+
+.anta-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-sm);
+}
+
+.anta-page-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.anta-page-title {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-title);
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.anta-page-title-icon {
+  color: var(--primary);
+  font-style: normal;
+}
+
+.anta-page-subtitle {
+  font-size: var(--font-size-small);
+  color: var(--text-muted);
+}
+
+.anta-record-count {
+  font-size: var(--font-size-caption);
+  color: var(--text-muted);
+  font-weight: var(--font-weight-normal);
+}
+
+/* =============================================================================
+   6. TOOLBAR
+   ============================================================================= */
+
+.anta-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.anta-toolbar-spacer {
+  flex: 1;
+}
+
+/* =============================================================================
+   7. BUTTONS
+   ============================================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: 0 var(--space-lg);
+  height: 36px;
+  font-size: var(--font-size-body);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-normal);
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              color var(--transition-fast),
+              box-shadow var(--transition-fast);
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Primary */
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--text-white);
+}
+
+.btn-primary:hover {
+  background-color: #005f6e;
+  border-color: #005f6e;
+  color: var(--text-white);
+  text-decoration: none;
+}
+
+/* Default */
+.btn-default {
+  background-color: var(--bg-card);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+.btn-default:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* Danger */
+.btn-danger {
+  background-color: var(--bg-card);
+  border-color: var(--error);
+  color: var(--error);
+}
+
+.btn-danger:hover {
+  background-color: var(--error-bg);
+  border-color: var(--error);
+  color: var(--error);
+  text-decoration: none;
+}
+
+/* Ghost */
+.btn-ghost {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.65);
+  color: var(--text-white);
+}
+
+.btn-ghost:hover {
+  border-color: var(--text-white);
+  color: var(--text-white);
+  text-decoration: none;
+}
+
+/* Link style */
+.btn-link {
+  background: none;
+  border-color: transparent;
+  color: var(--link);
+  padding: 0;
+  height: auto;
+}
+
+.btn-link:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+/* Small variant */
+.btn-sm {
+  height: 28px;
+  padding: 0 var(--space-sm);
+  font-size: var(--font-size-small);
+}
+
+/* Icon prefix */
+.btn-icon {
+  font-style: normal;
+  font-size: 13px;
+  line-height: 1;
+}
+
+/* =============================================================================
+   8. FORM COMPONENTS
+   ============================================================================= */
+
+.anta-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.anta-form-section-title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-title);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--bg-table-head);
+  border-left: 3px solid var(--primary);
+  border-bottom: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.anta-form-section-title:first-child {
+  margin-top: 0;
+}
+
+.anta-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 var(--space-xl);
+}
+
+.anta-form-row--full {
+  grid-template-columns: 1fr;
+}
+
+.anta-form-row--three {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.anta-form-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+
+.anta-form-label {
+  font-size: var(--font-size-body);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-normal);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.anta-form-required {
+  color: var(--error);
+  margin-left: 2px;
+}
+
+.anta-input,
+.anta-select,
+.anta-textarea {
+  width: 100%;
+  padding: 7px var(--space-md);
+  font-size: var(--font-size-body);
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-input);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  line-height: var(--line-height);
+}
+
+.anta-input:focus,
+.anta-select:focus,
+.anta-textarea:focus {
+  border-color: var(--border-input-focus);
+  box-shadow: 0 0 0 2px rgba(0, 119, 136, 0.15);
+}
+
+.anta-input::placeholder,
+.anta-textarea::placeholder {
+  color: var(--text-disabled);
+}
+
+.anta-input:disabled,
+.anta-select:disabled,
+.anta-textarea:disabled {
+  background-color: var(--bg-page);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  border-color: var(--border-light);
+}
+
+.anta-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238c8c8c' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+.anta-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Validation states */
+.anta-form-item--error .anta-input,
+.anta-form-item--error .anta-select,
+.anta-form-item--error .anta-textarea {
+  border-color: var(--error);
+}
+
+.anta-form-item--error .anta-input:focus,
+.anta-form-item--error .anta-select:focus,
+.anta-form-item--error .anta-textarea:focus {
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.15);
+}
+
+.anta-form-error {
+  font-size: var(--font-size-caption);
+  color: var(--error);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.anta-form-hint {
+  font-size: var(--font-size-caption);
+  color: var(--text-muted);
+  margin-top: 2px;
+  margin-bottom: var(--space-xs);
+}
+
+.anta-form-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--border-light);
+  margin-top: var(--space-lg);
+}
+
+/* =============================================================================
+   9. FILTERS BAR
+   ============================================================================= */
+
+.anta-filters {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.anta-search-wrapper {
+  position: relative;
+  flex: 0 0 280px;
+}
+
+.anta-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-style: normal;
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.anta-search-wrapper .anta-input {
+  padding-left: 32px;
+}
+
+.anta-filter-select {
+  width: 160px;
+}
+
+/* =============================================================================
+   10. CARD
+   ============================================================================= */
+
+.anta-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.anta-card-header {
+  padding: var(--space-lg) var(--space-xl);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.anta-card-title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-title);
+}
+
+.anta-card-body {
+  padding: var(--space-xl);
+}
+
+.anta-card-body--compact {
+  padding: var(--space-lg);
+}
+
+/* =============================================================================
+   11. TABLE
+   ============================================================================= */
+
+.anta-table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-card);
+}
+
+.anta-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-body);
+}
+
+.anta-table thead tr {
+  background-color: var(--bg-table-head);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.anta-table th {
+  padding: var(--space-sm) var(--space-lg);
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border-light);
+  letter-spacing: 0.02em;
+}
+
+.anta-table td {
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.anta-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.anta-table tbody tr:nth-child(even) {
+  background-color: var(--bg-table-stripe);
+}
+
+.anta-table tbody tr:hover {
+  background-color: var(--bg-table-hover);
+}
+
+.anta-table th.col-actions,
+.anta-table td.col-actions {
+  text-align: right;
+  white-space: nowrap;
+  width: 1%;
+}
+
+.anta-table td.col-id {
+  color: var(--text-muted);
+  font-size: var(--font-size-caption);
+  font-family: 'Courier New', monospace;
+}
+
+.anta-table-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-xs);
+}
+
+/* =============================================================================
+   12. BADGES / TAGS
+   ============================================================================= */
+
+.anta-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: 20px;
+  white-space: nowrap;
+  gap: var(--space-xs);
+}
+
+.anta-badge--draft {
+  background-color: var(--badge-draft-bg);
+  color: var(--badge-draft-text);
+}
+
+.anta-badge--pending {
+  background-color: var(--badge-pending-bg);
+  color: var(--badge-pending-text);
+}
+
+.anta-badge--in-progress {
+  background-color: var(--badge-progress-bg);
+  color: var(--badge-progress-text);
+}
+
+.anta-badge--approved {
+  background-color: var(--badge-approved-bg);
+  color: var(--badge-approved-text);
+}
+
+.anta-badge--rejected {
+  background-color: var(--badge-rejected-bg);
+  color: var(--badge-rejected-text);
+}
+
+.anta-badge--gray {
+  background-color: #f3f4f6;
+  color: #6b7280;
+}
+
+.anta-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+/* =============================================================================
+   13. PAGINATION
+   ============================================================================= */
+
+.anta-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-lg) var(--space-xl);
+  border-top: 1px solid var(--border-light);
+  background-color: var(--bg-card);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.anta-pagination-info {
+  font-size: var(--font-size-small);
+  color: var(--text-muted);
+  margin-right: auto;
+}
+
+.anta-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 var(--space-xs);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  font-size: var(--font-size-small);
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.anta-page-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.anta-page-btn--active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--text-white);
+  font-weight: var(--font-weight-medium);
+}
+
+.anta-page-btn--active:hover {
+  background-color: #005f6e;
+  border-color: #005f6e;
+  color: var(--text-white);
+}
+
+.anta-page-btn--disabled {
+  color: var(--text-disabled);
+  border-color: var(--border-light);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* =============================================================================
+   14. TABS
+   ============================================================================= */
+
+.anta-tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.anta-tabs-nav {
+  display: flex;
+  border-bottom: 2px solid var(--border-light);
+  gap: 0;
+  margin-bottom: var(--space-xl);
+}
+
+.anta-tab {
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-size-body);
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  text-decoration: none;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.anta-tab:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.anta-tab--active {
+  color: var(--primary);
+  font-weight: var(--font-weight-medium);
+  border-bottom-color: var(--primary);
+}
+
+/* =============================================================================
+   15. DESCRIPTIONS (Detail View)
+   ============================================================================= */
+
+.anta-descriptions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.anta-descriptions--full {
+  grid-template-columns: 1fr;
+}
+
+.anta-descriptions-item {
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border-light);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.anta-descriptions-item:nth-child(even) {
+  border-right: none;
+}
+
+.anta-descriptions-item:last-child,
+.anta-descriptions-item:nth-last-child(2):nth-child(odd) {
+  border-bottom: none;
+}
+
+.anta-descriptions-label {
+  font-size: var(--font-size-caption);
+  color: var(--text-muted);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.anta-descriptions-value {
+  font-size: var(--font-size-body);
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.anta-descriptions-value--empty {
+  color: var(--text-disabled);
+  font-style: italic;
+}
+
+/* =============================================================================
+   16. ALERTS / NOTIFICATIONS
+   ============================================================================= */
+
+.anta-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
+  border: 1px solid;
+  font-size: var(--font-size-body);
+}
+
+.anta-alert--success {
+  background-color: var(--success-bg);
+  border-color: var(--success-border);
+  color: #389e0d;
+}
+
+.anta-alert--warning {
+  background-color: var(--warning-bg);
+  border-color: var(--warning-border);
+  color: #d46b08;
+}
+
+.anta-alert--error {
+  background-color: var(--error-bg);
+  border-color: var(--error-border);
+  color: #cf1322;
+}
+
+.anta-alert--info {
+  background-color: var(--info-bg);
+  border-color: var(--info-border);
+  color: #096dd9;
+}
+
+.anta-alert-icon {
+  font-style: normal;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.anta-alert-content {
+  flex: 1;
+}
+
+.anta-alert-title {
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 2px;
+}
+
+/* =============================================================================
+   17. MODAL
+   ============================================================================= */
+
+.anta-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--space-xl);
+}
+
+.anta-modal {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.anta-modal-header {
+  padding: var(--space-lg) var(--space-xl);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.anta-modal-title {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-title);
+}
+
+.anta-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.anta-modal-close:hover {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+}
+
+.anta-modal-body {
+  padding: var(--space-xl);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.anta-modal-footer {
+  padding: var(--space-md) var(--space-xl);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+}
+
+/* =============================================================================
+   18. EMPTY STATE
+   ============================================================================= */
+
+.anta-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3xl) var(--space-xl);
+  text-align: center;
+  gap: var(--space-md);
+}
+
+.anta-empty-icon {
+  font-size: 64px;
+  color: var(--border);
+  font-style: normal;
+  line-height: 1;
+}
+
+.anta-empty-title {
+  font-size: var(--font-size-h3);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.anta-empty-description {
+  font-size: var(--font-size-body);
+  color: var(--text-muted);
+  max-width: 320px;
+}
+
+/* =============================================================================
+   19. ACTION BAR (Detail view)
+   ============================================================================= */
+
+.anta-action-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.anta-action-bar--end {
+  justify-content: flex-end;
+}
+
+/* =============================================================================
+   20. DIVIDER
+   ============================================================================= */
+
+.anta-divider {
+  height: 1px;
+  background-color: var(--border-light);
+  margin: var(--space-lg) 0;
+}
+
+.anta-divider--vertical {
+  width: 1px;
+  height: 1em;
+  background-color: var(--border-light);
+  display: inline-block;
+  margin: 0 var(--space-sm);
+  vertical-align: middle;
+}
+
+/* =============================================================================
+   21. STAT CARDS (Dashboard)
+   ============================================================================= */
+
+.anta-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-lg);
+}
+
+.anta-stat-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg) var(--space-xl);
+  box-shadow: var(--shadow-card);
+}
+
+.anta-stat-label {
+  font-size: var(--font-size-small);
+  color: var(--text-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.anta-stat-value {
+  font-size: 28px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-title);
+  line-height: 1.2;
+}
+
+.anta-stat-subtext {
+  font-size: var(--font-size-caption);
+  color: var(--text-muted);
+  margin-top: var(--space-xs);
+}
+
+/* =============================================================================
+   22. UTILITY CLASSES
+   ============================================================================= */
+
+.text-primary   { color: var(--primary); }
+.text-success   { color: var(--success); }
+.text-warning   { color: var(--warning); }
+.text-error     { color: var(--error); }
+.text-muted     { color: var(--text-muted); }
+.text-title     { color: var(--text-title); }
+.text-right     { text-align: right; }
+.text-center    { text-align: center; }
+.text-bold      { font-weight: var(--font-weight-semibold); }
+.text-small     { font-size: var(--font-size-small); }
+.text-caption   { font-size: var(--font-size-caption); }
+.text-h1        { font-size: var(--font-size-h1); font-weight: var(--font-weight-semibold); color: var(--text-title); line-height: 1.3; }
+.text-h2        { font-size: var(--font-size-h2); font-weight: var(--font-weight-semibold); color: var(--text-title); line-height: 1.3; }
+.text-h3        { font-size: var(--font-size-h3); font-weight: var(--font-weight-semibold); color: var(--text-title); line-height: 1.4; }
+
+.d-flex         { display: flex; }
+.align-center   { align-items: center; }
+.gap-xs         { gap: var(--space-xs); }
+.gap-sm         { gap: var(--space-sm); }
+.gap-md         { gap: var(--space-md); }
+.gap-lg         { gap: var(--space-lg); }
+.mt-sm          { margin-top: var(--space-sm); }
+.mt-lg          { margin-top: var(--space-lg); }
+.mb-sm          { margin-bottom: var(--space-sm); }
+.mb-lg          { margin-bottom: var(--space-lg); }
+.mt-xs          { margin-top: var(--space-xs); }
+.mt-md          { margin-top: var(--space-md); }
+.mt-xl          { margin-top: var(--space-xl); }
+.mt-2xl         { margin-top: var(--space-2xl); }
+.mb-xs          { margin-bottom: var(--space-xs); }
+.mb-md          { margin-bottom: var(--space-md); }
+.mb-xl          { margin-bottom: var(--space-xl); }
+.mb-2xl         { margin-bottom: var(--space-2xl); }
+.p-lg           { padding: var(--space-lg); }
+.p-xl           { padding: var(--space-xl); }
+.mx-auto        { margin-left: auto; margin-right: auto; }
+.max-w-900      { max-width: 900px; }
+
+/* Avatar size + color variants (used in table rows to avoid inline styles) */
+.anta-avatar-sm {
+  width: 28px;
+  height: 28px;
+  font-size: 11px;
+}
+
+.anta-avatar--orange { background: linear-gradient(135deg, #fa8c16, #ffd591); }
+.anta-avatar--gray   { background: linear-gradient(135deg, #595959, #bfbfbf); }
+.anta-avatar--red    { background: linear-gradient(135deg, #ff4d4f, #ffccc7); }
+.anta-avatar--green  { background: linear-gradient(135deg, #52c41a, #d1fae5); }
+
+/* Checkbox column in table */
+.col-checkbox { width: 48px; }
+
+/* Badge displayed inline inside a page title */
+.anta-badge-compact {
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+/* =============================================================================
+   23. RESPONSIVE
+   ============================================================================= */
+
+@media (max-width: 768px) {
+  .anta-sidebar {
+    display: none;
+  }
+
+  .anta-form-row,
+  .anta-form-row--three {
+    grid-template-columns: 1fr;
+  }
+
+  .anta-descriptions {
+    grid-template-columns: 1fr;
+  }
+
+  .anta-descriptions-item {
+    border-right: none;
+  }
+
+  .anta-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .anta-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .anta-search-wrapper {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .anta-filter-select {
+    width: 100%;
+  }
+}
+
+/* =============================================================================
+   17. INTERACTIVITY SUPPORT (prototype-interactions.js)
+   ============================================================================= */
+
+/* Visibility toggle — JS adds/removes this class */
+.anta-visible { display: block !important; }
+
+/* Tab panels: hidden by default, shown via .anta-visible */
+[data-tab-panel] { display: none; }
+[data-tab-panel].anta-visible { display: block; }
+
+/* State-driven elements: shown/hidden by JS via inline display */
+[data-show-state] { /* JS controls display via style.display */ }
+
+/* Modal overlay: hidden by default */
+.anta-modal-overlay { display: none; }
+.anta-modal-overlay.anta-visible { display: flex; }
+
+/* Field validation error */
+.anta-field-error .anta-input,
+.anta-field-error .anta-select,
+.anta-field-error .anta-textarea {
+  border-color: var(--error);
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.15);
+}
+
+/* =============================================================================
+   18. INSPECTOR MODE (toggle with ? key)
+   ============================================================================= */
+
+body.anta-inspect [data-navigate],
+body.anta-inspect [data-toggle],
+body.anta-inspect [data-tab],
+body.anta-inspect [data-dismiss],
+body.anta-inspect [data-goto],
+body.anta-inspect a[href] {
+  outline: 2px dashed #ff0066;
+  outline-offset: 2px;
+  position: relative;
+}
+
+body.anta-inspect [data-navigate]::after {
+  content: "\2192  " attr(data-navigate);
+  position: absolute; top: -20px; left: 0;
+  font: 11px/1 monospace; background: #ff0066; color: white;
+  padding: 2px 6px; border-radius: 2px; pointer-events: none;
+  white-space: nowrap; z-index: 9999;
+}
+
+body.anta-inspect [data-toggle]::after {
+  content: "toggle: " attr(data-toggle);
+  position: absolute; top: -20px; left: 0;
+  font: 11px/1 monospace; background: #ff0066; color: white;
+  padding: 2px 6px; border-radius: 2px; pointer-events: none;
+  white-space: nowrap; z-index: 9999;
+}
+
+body.anta-inspect [data-tab]::after {
+  content: "tab: " attr(data-tab);
+  position: absolute; top: -20px; left: 0;
+  font: 11px/1 monospace; background: #ff0066; color: white;
+  padding: 2px 6px; border-radius: 2px; pointer-events: none;
+  white-space: nowrap; z-index: 9999;
+}

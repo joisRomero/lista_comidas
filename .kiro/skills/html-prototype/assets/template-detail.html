@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maria Cardenas - Detalle Empleado - ANTA</title>
+  <link rel="stylesheet" href="./anta-prototype.css" />
+</head>
+<body>
+
+<div class="anta-layout">
+
+  <!-- ================================================================
+       SIDEBAR
+       ================================================================ -->
+  <nav class="anta-sidebar" aria-label="Menu principal">
+    <div class="anta-sidebar-logo">
+      <span class="anta-sidebar-logo-text">ANTA</span>
+    </div>
+    <ul class="anta-nav" role="navigation">
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-inicio">
+          <i class="anta-nav-icon">&#8962;</i>
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li class="anta-nav-section">Recursos Humanos</li>
+      <li class="anta-nav-item anta-nav-item--active">
+        <a href="#" class="anta-nav-link" data-testid="nav-empleados">
+          <i class="anta-nav-icon">&#128100;</i>
+          <span>Empleados</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-departamentos">
+          <i class="anta-nav-icon">&#127970;</i>
+          <span>Departamentos</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-cargos">
+          <i class="anta-nav-icon">&#128203;</i>
+          <span>Cargos</span>
+        </a>
+      </li>
+      <li class="anta-nav-divider" role="separator"></li>
+      <li class="anta-nav-section">Administracion</li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-usuarios">
+          <i class="anta-nav-icon">&#128736;</i>
+          <span>Usuarios</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-reportes">
+          <i class="anta-nav-icon">&#128202;</i>
+          <span>Reportes</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ================================================================
+       CONTENT
+       ================================================================ -->
+  <div class="anta-content">
+
+    <!-- Top bar -->
+    <header class="anta-top-bar" role="banner">
+      <span class="anta-top-bar-title">Modulo de Empleados</span>
+      <div class="anta-top-bar-spacer"></div>
+      <div class="anta-top-bar-user" aria-label="Usuario actual">
+        <div class="anta-avatar" aria-hidden="true">JR</div>
+        <span>Juan Rios</span>
+      </div>
+    </header>
+
+    <!-- Main scroll area -->
+    <main class="anta-main" role="main">
+
+      <!-- Breadcrumb -->
+      <nav class="anta-breadcrumb" aria-label="Ruta de navegacion">
+        <a href="#" data-testid="breadcrumb-inicio">Inicio</a>
+        <span class="anta-breadcrumb-sep" aria-hidden="true">/</span>
+        <a href="./lista-empleados.html" data-testid="breadcrumb-empleados">Empleados</a>
+        <span class="anta-breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="anta-breadcrumb-current" aria-current="page">Maria Cardenas</span>
+      </nav>
+
+      <!-- Page header with status + actions -->
+      <div class="anta-page-header">
+        <div class="anta-page-header-left">
+          <h1 class="anta-page-title">
+            Maria Elena Cardenas Ruiz
+            <span
+              class="anta-badge anta-badge--draft anta-badge-compact"
+              data-testid="badge-status"
+              aria-label="Estado actual: Borrador"
+            >
+              <span class="anta-badge-dot" aria-hidden="true"></span>
+              Borrador
+            </span>
+          </h1>
+          <p class="anta-page-subtitle">
+            DNI 45782301 &mdash; Ingeniera Senior &mdash; Operaciones
+          </p>
+        </div>
+
+        <!-- Action buttons — status: BORRADOR -->
+        <div class="anta-action-bar" role="toolbar" aria-label="Acciones del registro">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-testid="btn-enviar-revision"
+            aria-label="Enviar empleado a revision"
+          >
+            Enviar a Revision
+          </button>
+          <a
+            href="./editar-empleado.html"
+            class="btn btn-default"
+            data-testid="btn-editar"
+            aria-label="Editar empleado"
+          >
+            Editar
+          </a>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-testid="btn-eliminar"
+            aria-label="Eliminar empleado"
+          >
+            Eliminar
+          </button>
+        </div>
+      </div>
+
+      <!-- Alert: info about status -->
+      <div class="anta-alert anta-alert--info" role="status" aria-live="polite">
+        <i class="anta-alert-icon" aria-hidden="true">i</i>
+        <div class="anta-alert-content">
+          Este registro esta en estado <strong>Borrador</strong>. Debe ser enviado a revision
+          antes de que pueda ser aprobado por el area de Recursos Humanos.
+        </div>
+      </div>
+
+      <!-- Tabs: interactive via data-tab attributes -->
+      <div data-tab-group>
+        <div class="anta-tabs">
+          <nav class="anta-tabs-nav" role="tablist" aria-label="Secciones del empleado">
+            <a class="anta-tab anta-tab--active" data-tab="generales" data-testid="tab-datos-generales">
+              Datos Generales
+            </a>
+            <a class="anta-tab" data-tab="laboral" data-testid="tab-informacion-laboral">
+              Informacion Laboral
+            </a>
+            <a class="anta-tab" data-tab="historial" data-testid="tab-historial">
+              Historial
+            </a>
+            <a class="anta-tab" data-tab="documentos" data-testid="tab-documentos">
+              Documentos
+            </a>
+          </nav>
+        </div>
+
+      <!-- Tab panel: Datos Generales (active) -->
+      <div data-tab-panel="generales" class="anta-visible">
+
+        <!-- Datos personales card -->
+        <div class="anta-card mb-lg">
+          <div class="anta-card-header">
+            <h2 class="anta-card-title">Datos Personales</h2>
+          </div>
+          <div class="anta-card-body--compact">
+            <dl class="anta-descriptions" aria-label="Datos personales del empleado">
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Nombres</dt>
+                <dd class="anta-descriptions-value">Maria Elena</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Apellidos</dt>
+                <dd class="anta-descriptions-value">Cardenas Ruiz</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Tipo de Documento</dt>
+                <dd class="anta-descriptions-value">DNI</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Numero de Documento</dt>
+                <dd class="anta-descriptions-value">45782301</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Fecha de Nacimiento</dt>
+                <dd class="anta-descriptions-value">15/07/1990</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Sexo</dt>
+                <dd class="anta-descriptions-value">Femenino</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <!-- Informacion de contacto card -->
+        <div class="anta-card mb-lg">
+          <div class="anta-card-header">
+            <h2 class="anta-card-title">Informacion de Contacto</h2>
+          </div>
+          <div class="anta-card-body--compact">
+            <dl class="anta-descriptions" aria-label="Informacion de contacto del empleado">
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Correo Electronico</dt>
+                <dd class="anta-descriptions-value">
+                  <a href="mailto:m.cardenas@antamina.com">m.cardenas@antamina.com</a>
+                </dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Telefono</dt>
+                <dd class="anta-descriptions-value anta-descriptions-value--empty">No registrado</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tab panel: Informacion Laboral -->
+      <div data-tab-panel="laboral">
+
+        <!-- Informacion laboral card -->
+        <div class="anta-card">
+          <div class="anta-card-header">
+            <h2 class="anta-card-title">Informacion Laboral</h2>
+          </div>
+          <div class="anta-card-body--compact">
+            <dl class="anta-descriptions" aria-label="Informacion laboral del empleado">
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Departamento</dt>
+                <dd class="anta-descriptions-value">Operaciones</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Cargo</dt>
+                <dd class="anta-descriptions-value">Ingeniera Senior</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Fecha de Ingreso</dt>
+                <dd class="anta-descriptions-value">15/03/2021</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Tipo de Contrato</dt>
+                <dd class="anta-descriptions-value">Plazo Indeterminado</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Observaciones</dt>
+                <dd class="anta-descriptions-value anta-descriptions-value--empty">Sin observaciones</dd>
+              </div>
+              <div class="anta-descriptions-item">
+                <dt class="anta-descriptions-label">Ultima Modificacion</dt>
+                <dd class="anta-descriptions-value">06/05/2026 09:14 &mdash; Juan Rios</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+      </div>
+      </div><!-- /data-tab-group -->
+
+      <!-- Bottom action bar (repeat for long pages) -->
+      <div class="anta-action-bar" role="toolbar" aria-label="Acciones del registro (inferior)">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-testid="btn-enviar-revision-bottom"
+          aria-label="Enviar empleado a revision"
+        >
+          Enviar a Revision
+        </button>
+        <a
+          href="./editar-empleado.html"
+          class="btn btn-default"
+          data-testid="btn-editar-bottom"
+          aria-label="Editar empleado"
+        >
+          Editar
+        </a>
+        <a
+          href="./lista-empleados.html"
+          class="btn btn-default"
+          data-testid="btn-volver"
+          aria-label="Volver a la lista de empleados"
+        >
+          Volver a la Lista
+        </a>
+      </div>
+
+    </main>
+  </div><!-- /.anta-content -->
+
+</div><!-- /.anta-layout -->
+
+<script src="./prototype-interactions.js"></script>
+</body>
+</html>

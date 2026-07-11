@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Empleados - ANTA</title>
+  <link rel="stylesheet" href="./anta-prototype.css" />
+</head>
+<body>
+
+<div class="anta-layout">
+
+  <!-- ================================================================
+       SIDEBAR
+       ================================================================ -->
+  <nav class="anta-sidebar" aria-label="Menu principal">
+    <div class="anta-sidebar-logo">
+      <span class="anta-sidebar-logo-text">ANTA</span>
+    </div>
+    <ul class="anta-nav" role="navigation">
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-inicio">
+          <i class="anta-nav-icon">&#8962;</i>
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li class="anta-nav-section">Recursos Humanos</li>
+      <li class="anta-nav-item anta-nav-item--active">
+        <a href="#" class="anta-nav-link" data-testid="nav-empleados">
+          <i class="anta-nav-icon">&#128100;</i>
+          <span>Empleados</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-departamentos">
+          <i class="anta-nav-icon">&#127970;</i>
+          <span>Departamentos</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-cargos">
+          <i class="anta-nav-icon">&#128203;</i>
+          <span>Cargos</span>
+        </a>
+      </li>
+      <li class="anta-nav-divider" role="separator"></li>
+      <li class="anta-nav-section">Administracion</li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-usuarios">
+          <i class="anta-nav-icon">&#128736;</i>
+          <span>Usuarios</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-reportes">
+          <i class="anta-nav-icon">&#128202;</i>
+          <span>Reportes</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ================================================================
+       CONTENT
+       ================================================================ -->
+  <div class="anta-content">
+
+    <!-- Top bar -->
+    <header class="anta-top-bar" role="banner">
+      <span class="anta-top-bar-title">Modulo de Empleados</span>
+      <div class="anta-top-bar-spacer"></div>
+      <div class="anta-top-bar-user" aria-label="Usuario actual">
+        <div class="anta-avatar" aria-hidden="true">JR</div>
+        <span>Juan Rios</span>
+      </div>
+    </header>
+
+    <!-- Main scroll area -->
+    <main class="anta-main" role="main">
+
+      <!-- Page header -->
+      <div class="anta-page-header">
+        <div class="anta-page-header-left">
+          <h1 class="anta-page-title">
+            <i class="anta-page-title-icon" aria-hidden="true">&#128100;</i>
+            Empleados
+          </h1>
+          <p class="anta-page-subtitle">
+            Gestion del personal registrado en el sistema
+            <span class="anta-record-count">&mdash; 47 registros</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="anta-toolbar" role="toolbar" aria-label="Acciones de la pagina">
+        <a href="./crear-empleado.html" class="btn btn-primary" data-testid="btn-nuevo-empleado">
+          <i class="btn-icon" aria-hidden="true">+</i>
+          Nuevo Empleado
+        </a>
+        <button type="button" class="btn btn-default" data-testid="btn-exportar">
+          <i class="btn-icon" aria-hidden="true">&#8659;</i>
+          Exportar Excel
+        </button>
+        <div class="anta-toolbar-spacer"></div>
+        <button type="button" class="btn btn-default" data-testid="btn-importar">
+          <i class="btn-icon" aria-hidden="true">&#8657;</i>
+          Importar
+        </button>
+      </div>
+
+      <!-- Filters -->
+      <div class="anta-filters" role="search" aria-label="Filtros de busqueda">
+        <div class="anta-search-wrapper">
+          <i class="anta-search-icon" aria-hidden="true">&#128269;</i>
+          <input
+            type="search"
+            class="anta-input"
+            placeholder="Buscar por nombre, DNI..."
+            aria-label="Buscar empleados"
+            data-testid="input-search"
+          />
+        </div>
+        <select
+          class="anta-select anta-filter-select"
+          aria-label="Filtrar por estado"
+          data-testid="select-estado"
+        >
+          <option value="">Todos los estados</option>
+          <option value="BORRADOR">Borrador</option>
+          <option value="EN_REVISION">En Revision</option>
+          <option value="APROBADO">Aprobado</option>
+          <option value="RECHAZADO">Rechazado</option>
+        </select>
+        <select
+          class="anta-select anta-filter-select"
+          aria-label="Filtrar por departamento"
+          data-testid="select-departamento"
+        >
+          <option value="">Todos los departamentos</option>
+          <option value="operaciones">Operaciones</option>
+          <option value="it">Tecnologia</option>
+          <option value="rrhh">Recursos Humanos</option>
+          <option value="finanzas">Finanzas</option>
+        </select>
+        <button type="button" class="btn btn-link btn-sm text-muted" data-testid="btn-limpiar-filtros">
+          Limpiar filtros
+        </button>
+      </div>
+
+      <!-- Table -->
+      <div class="anta-table-wrapper" role="region" aria-label="Lista de empleados">
+        <table class="anta-table" aria-label="Empleados">
+          <thead>
+            <tr>
+              <th scope="col" class="col-checkbox">
+                <input type="checkbox" aria-label="Seleccionar todos" data-testid="checkbox-all" />
+              </th>
+              <th scope="col">Empleado</th>
+              <th scope="col">Documento</th>
+              <th scope="col">Departamento</th>
+              <th scope="col">Cargo</th>
+              <th scope="col">Fecha Ingreso</th>
+              <th scope="col">Estado</th>
+              <th scope="col" class="col-actions">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- Row 1 — APROBADO -->
+            <tr data-testid="row-1001">
+              <td>
+                <input type="checkbox" aria-label="Seleccionar empleado" data-testid="checkbox-row-1001" />
+              </td>
+              <td>
+                <div class="d-flex align-center gap-sm">
+                  <div class="anta-avatar anta-avatar-sm" aria-hidden="true">MC</div>
+                  <div>
+                    <div class="text-bold">Maria Cardenas</div>
+                    <div class="text-caption text-muted">m.cardenas@antamina.com</div>
+                  </div>
+                </div>
+              </td>
+              <td class="col-id">45782301</td>
+              <td>Operaciones</td>
+              <td>Ingeniera Senior</td>
+              <td>15/03/2021</td>
+              <td>
+                <span class="anta-badge anta-badge--approved" data-testid="badge-status" aria-label="Estado: Aprobado">
+                  <span class="anta-badge-dot" aria-hidden="true"></span>
+                  Aprobado
+                </span>
+              </td>
+              <td class="col-actions">
+                <div class="anta-table-actions">
+                  <a href="./detalle-empleado.html" class="btn btn-default btn-sm" data-testid="btn-ver-1001" aria-label="Ver empleado Maria Cardenas">Ver</a>
+                  <a href="./editar-empleado.html" class="btn btn-default btn-sm" data-testid="btn-editar-1001" aria-label="Editar empleado Maria Cardenas">Editar</a>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 2 — EN_REVISION -->
+            <tr data-testid="row-1002">
+              <td>
+                <input type="checkbox" aria-label="Seleccionar empleado" data-testid="checkbox-row-1002" />
+              </td>
+              <td>
+                <div class="d-flex align-center gap-sm">
+                  <div class="anta-avatar anta-avatar-sm anta-avatar--orange" aria-hidden="true">RL</div>
+                  <div>
+                    <div class="text-bold">Roberto Lopez</div>
+                    <div class="text-caption text-muted">r.lopez@antamina.com</div>
+                  </div>
+                </div>
+              </td>
+              <td class="col-id">38901245</td>
+              <td>Tecnologia</td>
+              <td>Desarrollador Backend</td>
+              <td>02/09/2022</td>
+              <td>
+                <span class="anta-badge anta-badge--pending" data-testid="badge-status" aria-label="Estado: En Revision">
+                  <span class="anta-badge-dot" aria-hidden="true"></span>
+                  En Revision
+                </span>
+              </td>
+              <td class="col-actions">
+                <div class="anta-table-actions">
+                  <a href="./detalle-empleado.html" class="btn btn-default btn-sm" data-testid="btn-ver-1002" aria-label="Ver empleado Roberto Lopez">Ver</a>
+                  <a href="./editar-empleado.html" class="btn btn-default btn-sm" data-testid="btn-editar-1002" aria-label="Editar empleado Roberto Lopez">Editar</a>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 3 — BORRADOR -->
+            <tr data-testid="row-1003">
+              <td>
+                <input type="checkbox" aria-label="Seleccionar empleado" data-testid="checkbox-row-1003" />
+              </td>
+              <td>
+                <div class="d-flex align-center gap-sm">
+                  <div class="anta-avatar anta-avatar-sm anta-avatar--gray" aria-hidden="true">AM</div>
+                  <div>
+                    <div class="text-bold">Ana Mendoza</div>
+                    <div class="text-caption text-muted">a.mendoza@antamina.com</div>
+                  </div>
+                </div>
+              </td>
+              <td class="col-id">52113400</td>
+              <td>Recursos Humanos</td>
+              <td>Analista RRHH</td>
+              <td>10/01/2024</td>
+              <td>
+                <span class="anta-badge anta-badge--draft" data-testid="badge-status" aria-label="Estado: Borrador">
+                  <span class="anta-badge-dot" aria-hidden="true"></span>
+                  Borrador
+                </span>
+              </td>
+              <td class="col-actions">
+                <div class="anta-table-actions">
+                  <a href="./detalle-empleado.html" class="btn btn-default btn-sm" data-testid="btn-ver-1003" aria-label="Ver empleado Ana Mendoza">Ver</a>
+                  <a href="./editar-empleado.html" class="btn btn-default btn-sm" data-testid="btn-editar-1003" aria-label="Editar empleado Ana Mendoza">Editar</a>
+                  <button type="button" class="btn btn-danger btn-sm" data-testid="btn-eliminar-1003" aria-label="Eliminar empleado Ana Mendoza">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 4 — RECHAZADO -->
+            <tr data-testid="row-1004">
+              <td>
+                <input type="checkbox" aria-label="Seleccionar empleado" data-testid="checkbox-row-1004" />
+              </td>
+              <td>
+                <div class="d-flex align-center gap-sm">
+                  <div class="anta-avatar anta-avatar-sm anta-avatar--red" aria-hidden="true">CP</div>
+                  <div>
+                    <div class="text-bold">Carlos Paredes</div>
+                    <div class="text-caption text-muted">c.paredes@antamina.com</div>
+                  </div>
+                </div>
+              </td>
+              <td class="col-id">41556789</td>
+              <td>Finanzas</td>
+              <td>Contador Junior</td>
+              <td>20/06/2023</td>
+              <td>
+                <span class="anta-badge anta-badge--rejected" data-testid="badge-status" aria-label="Estado: Rechazado">
+                  <span class="anta-badge-dot" aria-hidden="true"></span>
+                  Rechazado
+                </span>
+              </td>
+              <td class="col-actions">
+                <div class="anta-table-actions">
+                  <a href="./detalle-empleado.html" class="btn btn-default btn-sm" data-testid="btn-ver-1004" aria-label="Ver empleado Carlos Paredes">Ver</a>
+                  <a href="./editar-empleado.html" class="btn btn-default btn-sm" data-testid="btn-editar-1004" aria-label="Editar empleado Carlos Paredes">Editar</a>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 5 — APROBADO -->
+            <tr data-testid="row-1005">
+              <td>
+                <input type="checkbox" aria-label="Seleccionar empleado" data-testid="checkbox-row-1005" />
+              </td>
+              <td>
+                <div class="d-flex align-center gap-sm">
+                  <div class="anta-avatar anta-avatar-sm anta-avatar--green" aria-hidden="true">LT</div>
+                  <div>
+                    <div class="text-bold">Lucia Torres</div>
+                    <div class="text-caption text-muted">l.torres@antamina.com</div>
+                  </div>
+                </div>
+              </td>
+              <td class="col-id">37840012</td>
+              <td>Operaciones</td>
+              <td>Supervisora de Planta</td>
+              <td>08/11/2019</td>
+              <td>
+                <span class="anta-badge anta-badge--approved" data-testid="badge-status" aria-label="Estado: Aprobado">
+                  <span class="anta-badge-dot" aria-hidden="true"></span>
+                  Aprobado
+                </span>
+              </td>
+              <td class="col-actions">
+                <div class="anta-table-actions">
+                  <a href="./detalle-empleado.html" class="btn btn-default btn-sm" data-testid="btn-ver-1005" aria-label="Ver empleado Lucia Torres">Ver</a>
+                  <a href="./editar-empleado.html" class="btn btn-default btn-sm" data-testid="btn-editar-1005" aria-label="Editar empleado Lucia Torres">Editar</a>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <nav class="anta-pagination" role="navigation" aria-label="Paginacion">
+          <span class="anta-pagination-info">Mostrando 1&ndash;5 de 47 registros</span>
+          <a href="#" class="anta-page-btn anta-page-btn--disabled" aria-label="Pagina anterior" aria-disabled="true" data-testid="page-prev">&lsaquo;</a>
+          <a href="#" class="anta-page-btn anta-page-btn--active" aria-label="Pagina 1, pagina actual" aria-current="page" data-testid="page-1">1</a>
+          <a href="#" class="anta-page-btn" aria-label="Pagina 2" data-testid="page-2">2</a>
+          <a href="#" class="anta-page-btn" aria-label="Pagina 3" data-testid="page-3">3</a>
+          <span class="anta-page-btn" aria-hidden="true">&hellip;</span>
+          <a href="#" class="anta-page-btn" aria-label="Ultima pagina, pagina 10" data-testid="page-10">10</a>
+          <a href="#" class="anta-page-btn" aria-label="Pagina siguiente" data-testid="page-next">&rsaquo;</a>
+        </nav>
+      </div>
+
+    </main>
+  </div><!-- /.anta-content -->
+
+</div><!-- /.anta-layout -->
+
+<script src="./prototype-interactions.js"></script>
+</body>
+</html>

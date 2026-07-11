@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registros Personales y de Equipo - ANTA</title>
+  <link rel="stylesheet" href="./anta-prototype.css" />
+</head>
+<body>
+
+<!-- FLOW:
+  1. Usuario revisa sus propios registros con filtros dedicados.
+  2. Usuario pagina y compara estados en la primera tabla.
+  3. Usuario baja a la seccion del equipo para revisar registros compartidos.
+  4. Usuario usa filtros y paginacion independientes en cada bloque.
+-->
+
+<div class="anta-layout">
+
+  <nav class="anta-sidebar" aria-label="Menu principal">
+    <div class="anta-sidebar-logo">
+      <span class="anta-sidebar-logo-text">ANTA</span>
+    </div>
+    <ul class="anta-nav" role="navigation">
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-inicio">
+          <i class="anta-nav-icon">&#8962;</i>
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li class="anta-nav-section">Recursos Humanos</li>
+      <li class="anta-nav-item anta-nav-item--active">
+        <a href="#" class="anta-nav-link" data-testid="nav-registros">
+          <i class="anta-nav-icon">&#128203;</i>
+          <span>Registros</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-empleados">
+          <i class="anta-nav-icon">&#128100;</i>
+          <span>Empleados</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-reportes">
+          <i class="anta-nav-icon">&#128202;</i>
+          <span>Reportes</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="anta-content">
+    <header class="anta-top-bar" role="banner">
+      <span class="anta-top-bar-title">Modulo de Registros</span>
+      <div class="anta-top-bar-spacer"></div>
+      <div class="anta-top-bar-user" aria-label="Usuario actual">
+        <div class="anta-avatar" aria-hidden="true">JR</div>
+        <span>Juan Rios</span>
+      </div>
+    </header>
+
+    <main class="anta-main" role="main">
+      <div class="anta-page-header">
+        <div class="anta-page-header-left">
+          <h1 class="anta-page-title">
+            <i class="anta-page-title-icon" aria-hidden="true">&#128451;</i>
+            Registros Operativos
+          </h1>
+          <p class="anta-page-subtitle">Vista con dos secciones independientes para gestion personal y supervisada</p>
+        </div>
+      </div>
+
+      <div class="anta-card">
+        <div class="anta-card-header">
+          <h2 class="anta-card-title">Mis Registros</h2>
+        </div>
+        <div class="anta-card-body">
+          <div class="anta-filters" role="search" aria-label="Filtros de mis registros">
+            <div class="anta-search-wrapper">
+              <i class="anta-search-icon" aria-hidden="true">&#128269;</i>
+              <input type="search" class="anta-input" placeholder="Buscar por codigo o descripcion" data-testid="input-my-records-search" aria-label="Buscar en mis registros" />
+            </div>
+            <select class="anta-select anta-filter-select" data-testid="select-my-records-status" aria-label="Filtrar mis registros por estado">
+              <option value="">Todos los estados</option>
+              <option value="draft">Borrador</option>
+              <option value="pending" selected>En Revision</option>
+              <option value="approved">Aprobado</option>
+            </select>
+          </div>
+
+          <div class="anta-table-wrapper" role="region" aria-label="Tabla de mis registros">
+            <table class="anta-table" aria-label="Mis registros">
+              <thead>
+                <tr>
+                  <th scope="col">Codigo</th>
+                  <th scope="col">Descripcion</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="col-id">REG-1001</td>
+                  <td>Actualizacion de horario semanal</td>
+                  <td>12/05/2026</td>
+                  <td><span class="anta-badge anta-badge--pending">En Revision</span></td>
+                </tr>
+                <tr>
+                  <td class="col-id">REG-1002</td>
+                  <td>Solicitud de capacitacion interna</td>
+                  <td>10/05/2026</td>
+                  <td><span class="anta-badge anta-badge--approved">Aprobado</span></td>
+                </tr>
+                <tr>
+                  <td class="col-id">REG-1003</td>
+                  <td>Reasignacion de supervisor temporal</td>
+                  <td>08/05/2026</td>
+                  <td><span class="anta-badge anta-badge--draft">Borrador</span></td>
+                </tr>
+                <tr>
+                  <td class="col-id">REG-1004</td>
+                  <td>Cierre de observacion de seguridad</td>
+                  <td>06/05/2026</td>
+                  <td><span class="anta-badge anta-badge--approved">Aprobado</span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <nav class="anta-pagination" role="navigation" aria-label="Paginacion de mis registros">
+              <span class="anta-pagination-info">Mostrando 1&ndash;4 de 16 registros</span>
+              <a href="#" class="anta-page-btn anta-page-btn--active" aria-current="page" data-testid="page-my-records-1">1</a>
+              <a href="#" class="anta-page-btn" data-testid="page-my-records-2">2</a>
+              <a href="#" class="anta-page-btn" data-testid="page-my-records-next">&rsaquo;</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="anta-card mt-xl">
+        <div class="anta-card-header">
+          <h2 class="anta-card-title">Registros de Mi Equipo</h2>
+        </div>
+        <div class="anta-card-body">
+          <div class="anta-filters" role="search" aria-label="Filtros de registros del equipo">
+            <div class="anta-search-wrapper">
+              <i class="anta-search-icon" aria-hidden="true">&#128269;</i>
+              <input type="search" class="anta-input" placeholder="Buscar por colaborador o codigo" data-testid="input-team-records-search" aria-label="Buscar en registros del equipo" />
+            </div>
+            <select class="anta-select anta-filter-select" data-testid="select-team-records-status" aria-label="Filtrar registros del equipo por estado">
+              <option value="">Todos los estados</option>
+              <option value="pending" selected>En Revision</option>
+              <option value="approved">Aprobado</option>
+              <option value="rejected">Rechazado</option>
+            </select>
+          </div>
+
+          <div class="anta-table-wrapper" role="region" aria-label="Tabla de registros del equipo">
+            <table class="anta-table" aria-label="Registros de mi equipo">
+              <thead>
+                <tr>
+                  <th scope="col">Colaborador</th>
+                  <th scope="col">Codigo</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Lucia Torres</td>
+                  <td class="col-id">TEAM-203</td>
+                  <td>Cambio de turno</td>
+                  <td><span class="anta-badge anta-badge--pending">En Revision</span></td>
+                </tr>
+                <tr>
+                  <td>Pedro Aquino</td>
+                  <td class="col-id">TEAM-204</td>
+                  <td>Permiso medico</td>
+                  <td><span class="anta-badge anta-badge--approved">Aprobado</span></td>
+                </tr>
+                <tr>
+                  <td>Rocio Vila</td>
+                  <td class="col-id">TEAM-205</td>
+                  <td>Actualizacion de datos</td>
+                  <td><span class="anta-badge anta-badge--rejected">Rechazado</span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <nav class="anta-pagination" role="navigation" aria-label="Paginacion de registros del equipo">
+              <span class="anta-pagination-info">Mostrando 1&ndash;3 de 9 registros</span>
+              <a href="#" class="anta-page-btn anta-page-btn--active" aria-current="page" data-testid="page-team-records-1">1</a>
+              <a href="#" class="anta-page-btn" data-testid="page-team-records-2">2</a>
+              <a href="#" class="anta-page-btn" data-testid="page-team-records-next">&rsaquo;</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+<script src="./prototype-interactions.js"></script>
+</body>
+</html>

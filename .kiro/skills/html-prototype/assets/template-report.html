@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reporte de Asistencia - ANTA</title>
+  <link rel="stylesheet" href="./anta-prototype.css" />
+</head>
+<body>
+
+<!-- FLOW:
+  1. Usuario abre el reporte y revisa KPIs generales.
+  2. Usuario cambia entre tabs para ver detalle o historial.
+  3. Usuario aplica filtros propios por tab.
+  4. Usuario exporta la vista detallada para seguimiento.
+-->
+
+<div class="anta-layout">
+
+  <nav class="anta-sidebar" aria-label="Menu principal">
+    <div class="anta-sidebar-logo">
+      <span class="anta-sidebar-logo-text">ANTA</span>
+    </div>
+    <ul class="anta-nav" role="navigation">
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-inicio">
+          <i class="anta-nav-icon">&#8962;</i>
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li class="anta-nav-section">Administracion</li>
+      <li class="anta-nav-item anta-nav-item--active">
+        <a href="#" class="anta-nav-link" data-testid="nav-reportes">
+          <i class="anta-nav-icon">&#128202;</i>
+          <span>Reportes</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-empleados">
+          <i class="anta-nav-icon">&#128100;</i>
+          <span>Empleados</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-usuarios">
+          <i class="anta-nav-icon">&#128736;</i>
+          <span>Usuarios</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="anta-content">
+    <header class="anta-top-bar" role="banner">
+      <span class="anta-top-bar-title">Modulo de Reportes</span>
+      <div class="anta-top-bar-spacer"></div>
+      <div class="anta-top-bar-user" aria-label="Usuario actual">
+        <div class="anta-avatar" aria-hidden="true">JR</div>
+        <span>Juan Rios</span>
+      </div>
+    </header>
+
+    <main class="anta-main" role="main">
+      <div class="anta-page-header">
+        <div class="anta-page-header-left">
+          <h1 class="anta-page-title">
+            <i class="anta-page-title-icon" aria-hidden="true">&#128202;</i>
+            Reporte de Asistencia
+          </h1>
+          <p class="anta-page-subtitle">Vista tabulada con indicadores, detalle por empleado e historial de ejecuciones</p>
+        </div>
+      </div>
+
+      <div data-tab-group>
+        <div class="anta-tabs">
+          <nav class="anta-tabs-nav" role="tablist" aria-label="Tabs del reporte">
+            <a class="anta-tab anta-tab--active" data-tab="indicators" data-testid="tab-indicators">Indicadores</a>
+            <a class="anta-tab" data-tab="employee-detail" data-testid="tab-employee-detail">Detalle por Empleado</a>
+            <a class="anta-tab" data-tab="history" data-testid="tab-history">Historial</a>
+          </nav>
+        </div>
+
+        <div data-tab-panel="indicators" class="anta-visible">
+          <div class="anta-stats-grid mb-lg">
+            <div class="anta-stat-card">
+              <div class="anta-stat-label">Asistencia promedio</div>
+              <div class="anta-stat-value">94%</div>
+              <div class="anta-stat-subtext">Ultimos 30 dias</div>
+            </div>
+            <div class="anta-stat-card">
+              <div class="anta-stat-label">Tardanzas</div>
+              <div class="anta-stat-value">18</div>
+              <div class="anta-stat-subtext">-6 vs mes anterior</div>
+            </div>
+            <div class="anta-stat-card">
+              <div class="anta-stat-label">Ausencias</div>
+              <div class="anta-stat-value">4</div>
+              <div class="anta-stat-subtext">2 justificadas</div>
+            </div>
+            <div class="anta-stat-card">
+              <div class="anta-stat-label">Horas extra</div>
+              <div class="anta-stat-value">126</div>
+              <div class="anta-stat-subtext">Periodo Mayo 2026</div>
+            </div>
+          </div>
+
+          <div class="anta-table-wrapper" role="region" aria-label="Resumen de indicadores">
+            <table class="anta-table" aria-label="Resumen por area">
+              <thead>
+                <tr>
+                  <th scope="col">Area</th>
+                  <th scope="col">Asistencia</th>
+                  <th scope="col">Ausencias</th>
+                  <th scope="col">Horas Extra</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Operaciones</td>
+                  <td>95%</td>
+                  <td>2</td>
+                  <td>74</td>
+                </tr>
+                <tr>
+                  <td>Mantenimiento</td>
+                  <td>92%</td>
+                  <td>1</td>
+                  <td>31</td>
+                </tr>
+                <tr>
+                  <td>Recursos Humanos</td>
+                  <td>97%</td>
+                  <td>1</td>
+                  <td>21</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div data-tab-panel="employee-detail">
+          <div class="anta-filters" role="search" aria-label="Filtros de detalle por empleado">
+            <div class="anta-search-wrapper">
+              <i class="anta-search-icon" aria-hidden="true">&#128269;</i>
+              <input type="search" class="anta-input" placeholder="Buscar por empleado o documento" data-testid="input-report-search" aria-label="Buscar empleado" />
+            </div>
+            <input type="date" class="anta-input" value="2026-05-01" data-testid="input-report-date-from" aria-label="Fecha inicio" />
+            <input type="date" class="anta-input" value="2026-05-31" data-testid="input-report-date-to" aria-label="Fecha fin" />
+            <button type="button" class="btn btn-default" data-testid="btn-export-report-detail">Exportar</button>
+          </div>
+
+          <div class="anta-table-wrapper" role="region" aria-label="Detalle por empleado">
+            <table class="anta-table" aria-label="Detalle de asistencia por empleado">
+              <thead>
+                <tr>
+                  <th scope="col">Empleado</th>
+                  <th scope="col">Documento</th>
+                  <th scope="col">Asistencia</th>
+                  <th scope="col">Tardanzas</th>
+                  <th scope="col">Horas Extra</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Maria Cardenas</td>
+                  <td class="col-id">45782301</td>
+                  <td>98%</td>
+                  <td>0</td>
+                  <td>12</td>
+                </tr>
+                <tr>
+                  <td>Roberto Lopez</td>
+                  <td class="col-id">38901245</td>
+                  <td>91%</td>
+                  <td>3</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <td>Lucia Torres</td>
+                  <td class="col-id">37840012</td>
+                  <td>96%</td>
+                  <td>1</td>
+                  <td>9</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div data-tab-panel="history">
+          <div class="anta-filters" role="search" aria-label="Filtros del historial">
+            <input type="date" class="anta-input" value="2026-05-01" data-testid="input-history-date-from" aria-label="Fecha inicio historial" />
+            <input type="date" class="anta-input" value="2026-05-31" data-testid="input-history-date-to" aria-label="Fecha fin historial" />
+          </div>
+
+          <div class="anta-table-wrapper" role="region" aria-label="Historial de ejecuciones del reporte">
+            <table class="anta-table" aria-label="Historial del reporte">
+              <thead>
+                <tr>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Usuario</th>
+                  <th scope="col">Accion</th>
+                  <th scope="col">Resultado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>18/05/2026 08:15</td>
+                  <td>Juan Rios</td>
+                  <td>Exportacion detalle mensual</td>
+                  <td><span class="anta-badge anta-badge--approved">Exitoso</span></td>
+                </tr>
+                <tr>
+                  <td>17/05/2026 19:42</td>
+                  <td>Sofia Vera</td>
+                  <td>Generacion automatica diaria</td>
+                  <td><span class="anta-badge anta-badge--approved">Exitoso</span></td>
+                </tr>
+                <tr>
+                  <td>16/05/2026 07:03</td>
+                  <td>Scheduler</td>
+                  <td>Consolidacion de marcaciones</td>
+                  <td><span class="anta-badge anta-badge--pending">En Proceso</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+<script src="./prototype-interactions.js"></script>
+</body>
+</html>

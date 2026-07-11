@@ -1,0 +1,54 @@
+name: lista_comidas
+description: "Ñami — App de planificación de comidas con recetas peruanas"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # Estado — Riverpod
+  flutter_riverpod: ^3.3.0
+  riverpod_annotation: ^2.6.0
+
+  # Base de datos local — SQLite
+  sqflite: ^2.4.0
+  path: ^1.9.0
+  path_provider: ^2.1.0
+
+  # Preferencias de usuario (tema claro/oscuro)
+  shared_preferences: ^2.3.0
+
+  # Generación de PDF y Share Sheet nativo
+  pdf: ^3.11.0
+  printing: ^5.13.0
+  share_plus: ^10.1.0
+
+  # Backup — selector de archivos
+  file_picker: ^8.1.0
+
+  # Internacionalización (solo 'es' en MVP, arquitectura preparada)
+  intl: ^0.20.0
+
+  # Iconos de cupertino (iOS style)
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Linting
+  flutter_lints: ^6.0.0
+
+  # Code generation para Riverpod
+  riverpod_generator: ^2.6.0
+  build_runner: ^2.4.0
+
+flutter:
+  uses-material-design: true
+  generate: true  # Habilita la generación de AppLocalizations

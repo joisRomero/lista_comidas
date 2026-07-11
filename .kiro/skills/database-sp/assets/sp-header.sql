@@ -1,0 +1,21 @@
+/* ==============================================================================
+-- Object:      {Schema}.{SPName}
+-- Author:      {Author}
+-- Created:     YYYY-MM-DD
+-- Version:     1.0
+-- Description: {Concise description of what this SP does}
+-- ServiceId:   {ServiceId from API catalog, e.g. 87001}
+-- Rules:       {Business rules covered, e.g. RN-AGD-001..008}
+-- Parameters:
+--   @ParamIName TYPE              - Description of parameter
+--   @ParamIName2 TYPE             - Description of optional parameter (opcional)
+-- Returns:
+--   ResultSet 1: Description of what it returns, or Error
+-- Security:
+--   {Security notes: which params come from HeaderToken, authorization logic}
+-- ===========================================================================
+-- CHANGE HISTORY:
+-- Version  Date        Author          Description
+-- -------  ----------  --------------  --------------------------------------
+-- 1.0      YYYY-MM-DD  {Author}        Creación inicial
+============================================================================== */

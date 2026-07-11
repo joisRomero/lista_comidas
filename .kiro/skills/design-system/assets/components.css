@@ -1,0 +1,166 @@
+/* Card */
+.card {
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 24px;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-color: #007788;
+}
+
+/* Card with Lift */
+.cardLift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Selectable Card */
+.selectableCard {
+  border: 2px solid #d9d9d9;
+  cursor: pointer;
+}
+
+.selectableCard:hover {
+  border-color: #5b8def;
+}
+
+.selectableCard.selected {
+  border-width: 3px;
+  border-color: #52c41a;
+}
+
+/* Icon Container */
+.iconContainer {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #007788;
+}
+
+/* Badge Circular */
+.badge {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  background-color: #1890ff;
+}
+
+/* Code/Badge Inline */
+.code {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4a5568;
+  background: #f2f2f3;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* List Item Card */
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 20px;
+  background: #fafafa;
+  transition: all 0.2s;
+}
+
+.listItem:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-color: #007788;
+}
+
+/* Summary Card (Dashboard) */
+.summaryCard {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.summaryValue {
+  font-size: 28px;
+  font-weight: 700;
+  color: #262626;
+}
+
+.summaryLabel {
+  font-size: 12px;
+  color: #8c8c8c;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 20px;
+}
+
+.emptyIcon { font-size: 80px; color: #d9d9d9; }
+.emptyTitle { font-size: 16px; color: #595959; font-weight: 500; }
+.emptyText { font-size: 14px; color: #8c8c8c; }
+
+/* Page Layout */
+.page {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.pageTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* States & Transitions */
+.actionBtn:hover {
+  color: #ff4d4f;
+}
+
+.link:hover {
+  color: #40a9ff;
+}
+
+/* Text Truncation */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.truncateMulti {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

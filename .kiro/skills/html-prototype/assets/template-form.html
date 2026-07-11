@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuevo Empleado - ANTA</title>
+  <link rel="stylesheet" href="./anta-prototype.css" />
+</head>
+<body>
+
+<div class="anta-layout">
+
+  <!-- ================================================================
+       SIDEBAR
+       ================================================================ -->
+  <nav class="anta-sidebar" aria-label="Menu principal">
+    <div class="anta-sidebar-logo">
+      <span class="anta-sidebar-logo-text">ANTA</span>
+    </div>
+    <ul class="anta-nav" role="navigation">
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-inicio">
+          <i class="anta-nav-icon">&#8962;</i>
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li class="anta-nav-section">Recursos Humanos</li>
+      <li class="anta-nav-item anta-nav-item--active">
+        <a href="#" class="anta-nav-link" data-testid="nav-empleados">
+          <i class="anta-nav-icon">&#128100;</i>
+          <span>Empleados</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-departamentos">
+          <i class="anta-nav-icon">&#127970;</i>
+          <span>Departamentos</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-cargos">
+          <i class="anta-nav-icon">&#128203;</i>
+          <span>Cargos</span>
+        </a>
+      </li>
+      <li class="anta-nav-divider" role="separator"></li>
+      <li class="anta-nav-section">Administracion</li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-usuarios">
+          <i class="anta-nav-icon">&#128736;</i>
+          <span>Usuarios</span>
+        </a>
+      </li>
+      <li class="anta-nav-item">
+        <a href="#" class="anta-nav-link" data-testid="nav-reportes">
+          <i class="anta-nav-icon">&#128202;</i>
+          <span>Reportes</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ================================================================
+       CONTENT
+       ================================================================ -->
+  <div class="anta-content">
+
+    <!-- Top bar -->
+    <header class="anta-top-bar" role="banner">
+      <span class="anta-top-bar-title">Modulo de Empleados</span>
+      <div class="anta-top-bar-spacer"></div>
+      <div class="anta-top-bar-user" aria-label="Usuario actual">
+        <div class="anta-avatar" aria-hidden="true">JR</div>
+        <span>Juan Rios</span>
+      </div>
+    </header>
+
+    <!-- Main scroll area -->
+    <main class="anta-main" role="main">
+
+      <!-- Breadcrumb -->
+      <nav class="anta-breadcrumb" aria-label="Ruta de navegacion">
+        <a href="#" data-testid="breadcrumb-inicio">Inicio</a>
+        <span class="anta-breadcrumb-sep" aria-hidden="true">/</span>
+        <a href="./lista-empleados.html" data-testid="breadcrumb-empleados">Empleados</a>
+        <span class="anta-breadcrumb-sep" aria-hidden="true">/</span>
+        <span class="anta-breadcrumb-current" aria-current="page">Nuevo Empleado</span>
+      </nav>
+
+      <!-- Page header -->
+      <div class="anta-page-header">
+        <div class="anta-page-header-left">
+          <h1 class="anta-page-title">
+            <i class="anta-page-title-icon" aria-hidden="true">+</i>
+            Nuevo Empleado
+          </h1>
+          <p class="anta-page-subtitle">Complete todos los campos requeridos para registrar al empleado</p>
+        </div>
+      </div>
+
+      <!-- Alert: validation error example (shown when form has errors) -->
+      <div class="anta-alert anta-alert--error" role="alert" aria-live="polite">
+        <i class="anta-alert-icon" aria-hidden="true">!</i>
+        <div class="anta-alert-content">
+          <div class="anta-alert-title">Se encontraron errores en el formulario</div>
+          <div>Revise los campos marcados en rojo antes de continuar.</div>
+        </div>
+      </div>
+
+      <!-- Form card -->
+      <div class="anta-card">
+        <div class="anta-card-body">
+          <form class="anta-form" novalidate aria-label="Formulario de nuevo empleado" data-testid="form-empleado">
+
+            <!-- Section: Datos Personales -->
+            <h2 class="anta-form-section-title">Datos Personales</h2>
+
+            <div class="anta-form-row">
+              <!-- Nombres -->
+              <div class="anta-form-item anta-form-item--error">
+                <label class="anta-form-label" for="field-nombres">
+                  Nombres
+                  <span class="anta-form-required" aria-label="campo requerido">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="field-nombres"
+                  name="nombres"
+                  class="anta-input"
+                  placeholder="Ej: Maria Elena"
+                  aria-required="true"
+                  aria-describedby="error-nombres"
+                  aria-invalid="true"
+                  data-testid="field-nombres"
+                  value=""
+                />
+                <span id="error-nombres" class="anta-form-error" role="alert">
+                  El nombre es requerido.
+                </span>
+              </div>
+
+              <!-- Apellidos -->
+              <div class="anta-form-item">
+                <label class="anta-form-label" for="field-apellidos">
+                  Apellidos
+                  <span class="anta-form-required" aria-label="campo requerido">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="field-apellidos"
+                  name="apellidos"
+                  class="anta-input"
+                  placeholder="Ej: Cardenas Ruiz"
+                  aria-required="true"
+                  data-testid="field-apellidos"
+                  value="Cardenas Ruiz"
+                />
+              </div>
+            </div>
+
+            <div class="anta-form-row">
+              <!-- Tipo de documento -->
+              <div class="anta-form-item">
+                <label class="anta-form-label" for="field-tipo-documento">
+                  Tipo de Documento
+                  <span class="anta-form-required" aria-label="campo requerido">*</span>
+                </label>
+                <select
+                  id="field-tipo-documento"
+                  name="tipoDocumento"
+                  class="anta-select"
+                  aria-required="true"
+                  data-testid="field-tipo-documento"
+                >
+                  <option value="">Seleccione...</option>
+                  <option value="DNI" selected>DNI</option>
+                  <option value="CE">Carnet de Extranjeria</option>
+                  <option value="PASAPORTE">Pasaporte</option>
+                </select>
+              </div>
+
+              <!-- Numero de documento -->
+              <div class="anta-form-item">
+                <label class="anta-form-label" for="field-numero-documento">
+                  Numero de Documento
+                  <span class="anta-form-required" aria-label="campo requerido">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="field-numero-documento"
+                  name="numeroDocumento"
+                  class="anta-input"
+                  placeholder="Ej: 45782301"
+                  aria-required="true"
+                  data-testid="field-numero-documento"
+                  maxlength="12"
+                  value="45782301"
+                />
+              </div>
+            </div>
+
+            <div class="anta-form-row">
+              <!-- Fecha de nacimiento -->
+              <div class="anta-form-item">
+                <label class="anta-form-label" for="field-fecha-nacimiento">
+                  Fecha de Nacimiento
+                  <span class="anta-form-required" aria-label="campo requerido">*</span>
+                </label>
+                <input
+                  type="date"
+                  id="field-fecha-nacimiento"
+                  name="fechaNacimiento"
+                  class="anta-input"
+                  aria-required="true"
+                  data-testid="field-fecha-nacimiento"
+                  value="1990-07-15"
+                />
+              </div>
+
+              <!-- Sexo -->
+              <div class="anta-form-item">
+                <label class="anta-form-label" for="field-sexo">Sexo</label>
+                <select
+                  id="field-sexo"
+                  name="sexo"
+                  class="anta-select"
+                  data-testid="field-sexo"
+                >
+                  <option value="">Seleccione...</option>
+                  <option value="F" selected>Femenino</option>
+                  <option value="M">Masculino</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Section: Informacion de Contacto -->
+            <h2 class="anta-form-section-title">Informacion de Contacto</h2>
+
+            <div class="anta-form-row">
+              <!-- Correo electronico -->
+              <div class="anta-form-item">
+                <label class="anta-form-label" for="field-email">
+                  Correo Electronico
+                  <span class="anta-form-required" aria-label="campo requerido">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="field-email"
+                  name="email"
+                  class="anta-input"
+                  placeholder="usuario@antamina.com"
+                  aria-required="true"
+                  data-testid="field-email"
+                  value="m.cardenas@antamina.com"
+                />
+              </div>
+
+              <!-- Telefono -->
+              <div class="anta-form-item">
+                <label class="anta-form-label" for="field-telefono">Telefono</label>
+                <input
+                  type="tel"
+                  id="field-telefono"
+                  name="telefono"
+                  class="anta-input"
+                  placeholder="Ej: 987654321"
+                  data-testid="field-telefono"
+                  value=""
+                />
+              </div>
+            </div>
+
+            <!-- Section: Informacion Laboral -->
+            <h2 class="anta-form-section-title">Informacion Laboral</h2>
+
+            <div class="anta-form-row">
+              <!-- Departamento -->
+              <div class="anta-form-item">
+                <label class="anta-form-label" for="field-departamento">
+                  Departamento
+                  <span class="anta-form-required" aria-label="campo requerido">*</span>
+                </label>
+                <select
+                  id="field-departamento"
+                  name="departamento"
+                  class="anta-select"
+                  aria-required="true"
+                  data-testid="field-departamento"
+                >
+                  <option value="">Seleccione un departamento...</option>
+                  <option value="operaciones" selected>Operaciones</option>
+                  <option value="it">Tecnologia</option>
+                  <option value="rrhh">Recursos Humanos</option>
+                  <option value="finanzas">Finanzas</option>
+                  <option value="logistica">Logistica</option>
+                </select>
+              </div>
+
+              <!-- Cargo -->
+              <div class="anta-form-item">
+                <label class="anta-form-label" for="field-cargo">
+                  Cargo
+                  <span class="anta-form-required" aria-label="campo requerido">*</span>
+                </label>
+                <select
+                  id="field-cargo"
+                  name="cargo"
+                  class="anta-select"
+                  aria-required="true"
+                  data-testid="field-cargo"
+                >
+                  <option value="">Seleccione un cargo...</option>
+                  <option value="ingeniero-senior" selected>Ingeniero Senior</option>
+                  <option value="ingeniero-junior">Ingeniero Junior</option>
+                  <option value="supervisor">Supervisor</option>
+                  <option value="tecnico">Tecnico</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="anta-form-row">
+              <!-- Fecha de ingreso -->
+              <div class="anta-form-item">
+                <label class="anta-form-label" for="field-fecha-ingreso">
+                  Fecha de Ingreso
+                  <span class="anta-form-required" aria-label="campo requerido">*</span>
+                </label>
+                <input
+                  type="date"
+                  id="field-fecha-ingreso"
+                  name="fechaIngreso"
+                  class="anta-input"
+                  aria-required="true"
+                  data-testid="field-fecha-ingreso"
+                  value="2021-03-15"
+                />
+              </div>
+
+              <!-- Tipo de contrato -->
+              <div class="anta-form-item">
+                <label class="anta-form-label" for="field-tipo-contrato">Tipo de Contrato</label>
+                <select
+                  id="field-tipo-contrato"
+                  name="tipoContrato"
+                  class="anta-select"
+                  data-testid="field-tipo-contrato"
+                >
+                  <option value="">Seleccione...</option>
+                  <option value="indeterminado" selected>Plazo Indeterminado</option>
+                  <option value="determinado">Plazo Determinado</option>
+                  <option value="practicante">Practicante</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Observaciones -->
+            <div class="anta-form-row anta-form-row--full">
+              <div class="anta-form-item">
+                <label class="anta-form-label" for="field-observaciones">Observaciones</label>
+                <textarea
+                  id="field-observaciones"
+                  name="observaciones"
+                  class="anta-textarea"
+                  placeholder="Informacion adicional relevante sobre el empleado..."
+                  rows="4"
+                  data-testid="field-observaciones"
+                ></textarea>
+                <span class="anta-form-hint">Maximo 500 caracteres. Este campo es opcional.</span>
+              </div>
+            </div>
+
+            <!-- Form actions -->
+            <div class="anta-form-actions">
+              <button type="submit" class="btn btn-primary" data-testid="btn-submit">
+                Guardar Empleado
+              </button>
+              <button type="button" class="btn btn-default" data-testid="btn-cancel">
+                Cancelar
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div><!-- /.anta-content -->
+
+</div><!-- /.anta-layout -->
+
+<script src="./prototype-interactions.js"></script>
+</body>
+</html>

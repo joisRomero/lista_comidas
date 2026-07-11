@@ -1,0 +1,55 @@
+# syntax=docker/dockerfile:1.4
+
+###########################################################
+#                   STAGE 1 - BUILD
+###########################################################
+FROM mcr.microsoft.com/dotnet/sdk:8.0-noble AS build
+
+ARG CODE_PATH=./src/{ProjectName}.Api
+ARG CODEARTIFACT_AUTH_TOKEN
+
+WORKDIR /src
+
+COPY nuget.config .
+
+RUN dotnet nuget add source \
+    https://antamina-artifacts-shared-863518427779.d.codeartifact.us-east-1.amazonaws.com/nuget/ANTA-SHARED/v3/index.json \
+    --name antamina-artifacts-shared \
+    --username aws \
+    --password ${CODEARTIFACT_AUTH_TOKEN} \
+    --store-password-in-clear-text
+
+COPY ${CODE_PATH} .
+RUN dotnet restore
+
+RUN dotnet publish -c Release -o /app/out --no-restore
+
+###########################################################
+#                 STAGE 2 - RUNTIME
+###########################################################
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-noble AS final
+
+ARG SERVICE_PORT={PORT}
+
+ENV COMPlus_EnableDiagnostics=0
+ENV TZ=Etc/UTC
+
+WORKDIR /app
+
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    tzdata libgdiplus libfontconfig1 && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN groupadd -r dotnetgroup && \
+    useradd -r -g dotnetgroup -d /app -s /bin/bash -c "Dotnet User" dotnetuser
+RUN chown -R dotnetuser:dotnetgroup /app
+USER dotnetuser
+
+ENV ASPNETCORE_URLS=http://+:${SERVICE_PORT}
+EXPOSE ${SERVICE_PORT}
+
+COPY --from=build /app/out .
+COPY --from=build /app/out/appsettings.Local.json ./appsettings.Production.json
+
+ENTRYPOINT ["dotnet", "{ProjectName}.Api.dll"]
